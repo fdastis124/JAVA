@@ -2,15 +2,15 @@ package es.ucm.fdi.control;
 
 import es.ucm.fdi.ini.IniSection;
 
-public class ConstructorEventoNuevoCruce extends ConstructorEventos {
+public class ConstructorEventoNuevaCarretera extends ConstructorEventos {
 
 
 	@SuppressWarnings("unused")
 	private String[] valoresPorDefecto; // TENGO QUE DECLARAR EL CAMPO valoresPorDefecto? PORQUE COMO EXTIENDE DE CONSTRUCTOR
 										// EVENTOS NO DEBERIA ESTAR ESTE CAMPO AHI?
 	
-	public ConstructorEventoNuevoCruce(){
-		this._etiqueta = "new_junction";
+	public ConstructorEventoNuevaCarretera(){
+		this._etiqueta = "new_road";
 		this._keys = new String[]{"time", "id"};
 		 this.valoresPorDefecto = new String[] { "", "", };
 	}
@@ -28,7 +28,8 @@ public class ConstructorEventoNuevoCruce extends ConstructorEventos {
 		
 		
 	}
-	public String toString(){return "New Junction";}
+	public String toString(){return "New Road";}
 
 	
+
 }

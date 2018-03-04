@@ -16,7 +16,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import es.ucm.fdi.control.Controlador;
-import es.ucm.fdi.model.SimuladorTrafico;
+import es.ucm.fdi.exception.ErrorDeSimulacion;
+import es.ucm.fdi.simulador.SimuladorTrafico;
 
 
 public class Main {
@@ -59,6 +60,7 @@ public class Main {
 			System.err.println(e.getLocalizedMessage());
 			System.exit(1);
 		}
+		
 
 	}
 
@@ -105,7 +107,7 @@ public class Main {
 		}
 	}
 
-	private static void iniciaModoEstandar() throws IOException {
+	private static void iniciaModoEstandar() throws IOException, ErrorDeSimulacion {
 		InputStream is = new FileInputStream(new File(Main.ficheroEntrada));
 		OutputStream os = Main.ficheroSalida == null ? System.out : new FileOutputStream(new File(Main.ficheroSalida));
 		SimuladorTrafico sim = new SimuladorTrafico();
@@ -126,7 +128,12 @@ public class Main {
 		//
 		
 		Main.ParseaArgumentos(args);
-		Main.iniciaModoEstandar();
+		
+		try {
+			Main.iniciaModoEstandar();
+		} catch (ErrorDeSimulacion e) {
+			e.printStackTrace();
+		}
 	
 	}
 

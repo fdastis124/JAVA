@@ -1,45 +1,104 @@
-package es.ucm.fdi.Cruce;
+package es.ucm.fdi.cruce;
 
-import es.ucm.fdi.model.ObjetoSimulacion;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import es.ucm.fdi.carretera.*;
+import es.ucm.fdi.ini.IniSection;
+import es.ucm.fdi.simulador.ObjetoSimulacion;
+import es.ucm.fdi.vehiculo.*;
 
 abstract public class Cruce extends ObjetoSimulacion {
-	 protected int indiceSemaforoVerde; // lleva el índice de la carretera entrante
-	 // con el semáforo en verde
-	 protected List<CarreteraEntrante> carreterasEntrantes;
+	// CRUCE ES UN ARRAY DE CARRETERASÂ¿?
+	protected int _indiceSemaforoVerde;
+	protected List<CarreteraEntrante> _carreterasEntrantes;
+	
+	protected Map<String, CarreteraEntrante> _mapaCarreterasEntrantes;
+	protected Map<Cruce, Carretera> _mapaCarreterasSalientes;
+	
+	public Cruce(String id) {
+		super(id);
+		this._indiceSemaforoVerde = 0;
+		this._carreterasEntrantes = new ArrayList<>();
+		this._carreterasEntrantes = null;
+		this._mapaCarreterasEntrantes = new HashMap<String, CarreteraEntrante>();
+		this._mapaCarreterasEntrantes = null;
+		this._mapaCarreterasSalientes = new HashMap<Cruce, Carretera>();
+		this._mapaCarreterasSalientes = null;
+	}
+	
+	public Carretera carreteraHaciaCruce (Cruce cruce) {
+		// devuelve la carretera que llega desde cruce hasta this
+		return null;
+	}
+	
+	public void addCarreteraEntranteAlCruce (String idCarretera, Carretera carretera) {
+		CarreteraEntrante road = new CarreteraEntrante(carretera);
+		this._carreterasEntrantes.add(road);
+		this._mapaCarreterasEntrantes.put(idCarretera, road);
+	}
+	
+	public void addCarreteraSalienteAlCruce (Cruce destino, Carretera road) {
+		this._mapaCarreterasSalientes.put(destino, road);
+	}
+	
+	public void entraVehiculoAlCruce (String idCarretera, Vehiculo car) {
+		// aÃ±ade el vehiculo a carretera
+	}
+	
+	protected void actualizaSemaforos() {
+		// pone el semaforo de la carretera actual a rojo
+		// busca la siguiente para ponerla en verde
+	}
+	
+	public String generaInforme () {
+		String ret = "";
+		
+		ret += "[junction_report]\n";
+		
+		ret += "id = " + this._id + "\n";
+		
+		ret += "time = " +  "\n";	// TIEMPO
+		
+		ret += "queues = ";
+		
+//		for(int i = 0; i < this._carreteras; ++i) {
+//			ret += "(";
+//			ret += this._totalWays[i].getId();
+//			ret += ",";
+//			if(this._trafficLight[i])
+//				ret += "green,";
+//			else
+//				ret += "red,";
+//			ret += "[";
+//			
+//			//REPRESENTAR LA COLA
+//			
+//			ret += "])";
+//			
+//			if(i < 3)
+//				ret += ",";
+//		}
+		
+		ret += "\n";
+		
+		return ret;
+	}
 
-	 // para optimizar las búsquedas de las carreterasEntrantes
-	 // (IdCarretera, CarreteraEntrante)
-	 protected Map<String,CarreteraEntrante> mapaCarreterasEntrantes;
-	 protected Map<Cruce, Carretera> CarreterasSalientes;
-	 
-	 public Cruce(String id) {...}
-	 public Carretera carreteraHaciaCruce(Cruce cruce) {
-	  // devuelve la carretera que llega a ese cruce desde “this”
-	 }
-	 public void addCarreteraEntranteAlCruce(String idCarretera, Carretera carretera) {
-	  // añade una carretera entrante al “mapaCarreterasEntrantes” y
-	  // a las “carreterasEntrantes”
-	 }
-	 public void addCarreteraSalienteAlCruce(Cruce destino, Carretera road) {
-	  // añade una carretera saliente
-	 }
-	 public void entraVehiculoAlCruce(String idCarretera, Vehiculo vehiculo){
-	  // añade el “vehiculo” a la carretera entrante “idCarretera”
-	 }
-	 protected void actualizaSemaforos(){
-	  // pone el semáforo de la carretera actual a “rojo”, y busca la siguiente
-	  // carretera entrante para ponerlo a “verde”
-	 } 
-	 public void avanza() {
-		// Si “carreterasEntrantes” es vacío, no hace nada.
-		 // en otro caso “avanzaPrimerVehiculo” de la carretera con el semáforo verde.
-		 // Posteriormente actualiza los semáforos.
-		}
-		@Override
-		protected String getNombreSeccion() {...}
-		@Override
-		protected void completaDetallesSeccion(IniSection is) {
-		 // genera la sección queues = (r2,green,[]),...
-		}
-
+	@Override
+	public void avanza() {
+		// TODO Auto-generated method stub
+	}
+	
+	protected String getNombreSeccion () {
+		return "junction_report";
+	}
+	
+	protected void completaDetallesSeccion (IniSection is) {
+		
+	}
+	
+	
 }
